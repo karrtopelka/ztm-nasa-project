@@ -18,4 +18,4 @@ jobs:
       - name: Install concurrently
         run: npm install -g concurrently
       - run: yarn install
-      - run: install-client
+      - run: yarn build

@@ -9,6 +9,7 @@
     "server": "cd server && yarn watch",
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "build": "cd client && yarn build",
     "deploy": "cd client && yarn build && cd ../server && yarn start",
     "deploy-cluster": "cd client && yarn build && cd ../server && yarn cluster",
     "test-server": "cd server && yarn test",
