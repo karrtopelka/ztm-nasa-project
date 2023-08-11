@@ -1,0 +1,20 @@
+{
+  "name": "nasa-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd server && yarn",
+    "install-client": "cd client && yarn",
+    "install": "concurrently \"yarn install-server\" \"yarn install-client\"",
+    "server": "cd server && yarn watch",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "deploy": "cd client && yarn build && cd .. && cd server && yarn start",
+    "deploy-cluster": "cd client && yarn build && cd ../server && yarn cluster",
+    "test-server": "cd server && yarn test",
+    "test-client": "cd client && yarn test",
+    "test": "concurrently \"yarn test-server\" \"yarn test-client\""
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
