@@ -17,5 +17,7 @@ jobs:
         run: npm install -g yarn
       - name: Install concurrently
         run: npm install -g concurrently
-      - run: yarn install
-      - run: yarn build
+      - name: Install dependencies
+        run: yarn install
+      - name: Build frontend
+        run: yarn build
