@@ -8,9 +8,11 @@ jobs:
   build:
     env:
       CI: true
+      MONGO_URL: mongodb://localhost/nasa
     strategy:
       matrix:
         node-version: [14.x, 16.x]
+        mongodb-version: [4.4.x]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,6 +24,10 @@ jobs:
         run: npm install -g yarn
       - name: Install concurrently
         run: npm install -g concurrently
+      - name: Install MongoDB v${{ matrix.mongodb-version }}
+        uses: supercharge/mongodb-github-action@v2.0.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
       - name: Install dependencies client
         run: yarn install-client
       - name: Install dependencies server
