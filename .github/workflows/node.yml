@@ -6,13 +6,18 @@ on:
     branches: [main]
 jobs:
   build:
+    env:
+      CI: true
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 16.x
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
+          node-version: ${{ matrix.node-version }}
       - name: Install yarn
         run: npm install -g yarn
       - name: Install concurrently
@@ -23,3 +28,5 @@ jobs:
         run: yarn install-server
       - name: Build frontend
         run: yarn build
+      - name: Run tests
+        run: yarn test
