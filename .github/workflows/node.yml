@@ -11,28 +11,37 @@ jobs:
       MONGO_URL: mongodb://localhost/nasa
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
-        mongodb-version: [4.4.x]
+        node-version: [16.x, 18.x]
+        mongodb-version: ['4.4']
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Git checkout
+        uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Install concurrently
-        run: npm install -g concurrently
-      - name: Install MongoDB v${{ matrix.mongodb-version }}
+
+      - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.10.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install concurrently
+        run: npm install -g concurrently
+
       - name: Install dependencies client
         run: yarn install-client
+
       - name: Install dependencies server
         run: yarn install-server
+
       - name: Build frontend
         run: yarn build
+
       - name: Run tests
         run: yarn test
